@@ -5,13 +5,14 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Data
 public class BaseEntity {
 
     @Column(updatable = false)
-    private LocalDate ceratedAt;
+    private LocalDateTime createdAt;
 
     @Column(updatable = false)
     private String createdBy;
