@@ -10,4 +10,5 @@ public class CustomerDto {
     private String mobileNumber;
 
     private AccountsDto accountsDto;
+
 }
