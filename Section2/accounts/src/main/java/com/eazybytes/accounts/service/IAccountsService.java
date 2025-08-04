@@ -22,4 +22,11 @@ public interface IAccountsService {
      * @return
      */
     boolean updateAccount(CustomerDto customerDto);
+
+    /**
+     * Deletes the account for the customer.
+     * @param mobileNumber
+     * @return
+     */
+    boolean deleteAccount(String mobileNumber);
 }
