@@ -1,3 +1,6 @@
+logging:
+  level:
+    com.eazybytes.cards.controller: DEBUG
 server:
   port: 9000
 spring:
@@ -14,3 +17,23 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  config:
+    import:
+      - "application_prod.yml"
+      - "application_qa.yml"
+
+  profiles:
+    active:
+      - "qa"
+
+build:
+  version: "3.0"
+
+cards:
+  message: "Welcome to the Accounts Service"
+  contactDetails:
+    name: "Saurav Bhasin - Developer"
+    email: "test@gmail.com"
+  onCallSupport:
+    -(555) 555-1234
+    -(555) 555-5678
