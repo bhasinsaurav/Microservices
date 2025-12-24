@@ -8,8 +8,8 @@ spring:
     config:
       server:
         git:
-          uri: "https://github.com/eazybytes/eazybytes-config.git"
-          default-label: main
+          uri: "https://github.com/bhasinsaurav/eazybytes-config"
+          default-label: patch-1
           timeout: 5
           clone-on-start: true
           force-pull: true
@@ -20,4 +20,19 @@ encrypt:
 
 server:
   port: 8071
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
 
