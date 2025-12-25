@@ -31,6 +31,12 @@ spring:
             uri: lb://gatewayserver
             predicates:
               - Path=/gatewayserver/**
+  data:
+    redis:
+      connect-timeout: 2s
+      host: localhost
+      port: 6379
+      timeout: 1s
 management:
   endpoints:
     web:
