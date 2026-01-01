@@ -1,4 +1,20 @@
 services:
+  rabbit:
+    image: rabbitmq:4.0-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   keycloak:
     image: quay.io/keycloak/keycloak:26.4.7
     container_name: keycloak
@@ -270,7 +286,7 @@ services:
 
 
   configserver:
-    image: "bhasinsaurav/configserver:s12"
+    image: "bhasinsaurav/configserver:s13"
     container_name: "configserver-ms"
     ports:
       - "8071:8071"
@@ -287,7 +303,7 @@ services:
       OTEL_SERVICE_NAME: "configserver"
 
   eurekaserver:
-    image: "bhasinsaurav/eurekaserver:s12"
+    image: "bhasinsaurav/eurekaserver:s13"
     container_name: "eurekaserver-ms"
     depends_on:
       configserver:
@@ -310,7 +326,7 @@ services:
 
 
   accounts:
-    image: "bhasinsaurav/accounts:s12"
+    image: "bhasinsaurav/accounts:s13"
     container_name: "accounts-ms"
     healthcheck:
       test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
@@ -321,16 +337,19 @@ services:
     depends_on:
       accountsdb:
         condition: service_healthy
+      rabbit:
+        condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: "accounts"
       SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
       OTEL_SERVICE_NAME: "accounts"
+      SPRING_RABBITMQ_HOST: "rabbit"
     extends:
       file: common-config.yml
       service: microservice-eureka-config
 
   loans:
-    image: "bhasinsaurav/loans:s12"
+    image: "bhasinsaurav/loans:s13"
     container_name: "loans-ms"
     healthcheck:
       test: "curl --fail --silent localhost:8090/actuator/health/readiness | grep UP || exit 1"
@@ -352,7 +371,7 @@ services:
 
 
   cards:
-    image: "bhasinsaurav/cards:s12"
+    image: "bhasinsaurav/cards:s13"
     container_name: "cards-ms"
     healthcheck:
       test: "curl --fail --silent localhost:9000/actuator/health/readiness | grep UP || exit 1"
@@ -372,7 +391,7 @@ services:
       service: microservice-eureka-config
 
   gatewayserver:
-    image: "bhasinsaurav/gatewayserver:s12"
+    image: "bhasinsaurav/gatewayserver:s13"
     container_name: "gatewayserver-ms"
     ports:
       - "8072:8072"
@@ -397,6 +416,18 @@ services:
     extends:
       file: common-config.yml
       service: microservice-eureka-config
+
+  message:
+    image: "bhasinsaurav/message:s13"
+    container_name: message-ms
+    depends_on:
+      rabbit:
+        condition: service_healthy
+    environment:
+      SPRING_RABBITMQ_HOST: "rabbit"
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
 
 networks:
   bhasinsaurav:
