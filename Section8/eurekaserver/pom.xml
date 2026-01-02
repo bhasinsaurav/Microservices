@@ -85,7 +85,7 @@
 				<version>3.4.6</version>
 				<configuration>
 					<to>
-						<image>bhasinsaurav/${project.artifactId}:s13</image>
+						<image>bhasinsaurav/${project.artifactId}:s14</image>
 					</to>
 				</configuration>
 			</plugin>
