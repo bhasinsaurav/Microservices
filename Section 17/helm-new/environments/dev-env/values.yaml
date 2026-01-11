@@ -1,0 +1,14 @@
+global:
+  configMapName: eazybankdev-configmap
+  activeProfile: default
+  configServerURL: http://configserver:8071/
+  discoveryServerURL: http://spring-cloud-kubernetes-discoveryserver:80/
+  keyCloakURL: http://keycloak.default.svc.cluster.local:80/realms/master/protocol/openid-connect/certs
+  openTelemetryJavaAgent: "-javaagent:/app/libs/opentelemetry-javaagent-2.22.0.jar"
+  otelExporterEndPoint: http://tempo.default.svc.cluster.local:4318
+  otelMetricsExporter: none
+  otelLogsExporter: none
+  kafkaBrokerURL: kafka.default.svc.cluster.local:9092
+  springDatasourcePassword: root
+  springDatasourceUsername: root
+  mysqlRootPassword: root

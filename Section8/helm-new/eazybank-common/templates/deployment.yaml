@@ -60,6 +60,7 @@ spec:
               key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
         {{- end }}
         {{- if .Values.otel_enabled }}
+       
         - name: JAVA_TOOL_OPTIONS
           valueFrom: 
             configMapKeyRef:
