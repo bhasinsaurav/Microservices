@@ -11,7 +11,7 @@ replicaCount: 2
 
 image:
   repository: bhasinsaurav/accounts
-  tag: s14
+  tag: s17
 
 containerPort: 8080
 

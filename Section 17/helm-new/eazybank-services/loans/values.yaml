@@ -10,7 +10,7 @@ replicaCount: 1
 
 image:
   repository: bhasinsaurav/loans
-  tag: s14
+  tag: s17
 
 containerPort: 8090
 

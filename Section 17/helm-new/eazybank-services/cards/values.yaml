@@ -11,7 +11,7 @@ replicaCount: 1
 
 image:
   repository: bhasinsaurav/cards
-  tag: s14
+  tag: s17
 
 containerPort: 9000
 
